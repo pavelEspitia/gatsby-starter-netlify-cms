@@ -4,24 +4,23 @@ import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
-export const AboutPageTemplate = ({ title, content, contentComponent }) => {
+export const AboutPageTemplate = ({ title, content, image, contentComponent }) => {
   const PageContent = contentComponent || Content
 
   return (
-    <section className="section section--gradient">
-      <div className="container">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <div className="section">
-              <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
-                {title}
-              </h2>
-              <PageContent className="content" content={content} />
-            </div>
-          </div>
+    <div>
+      <div className="main-section">
+        <div className="flex-container">
+          <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
+            {title}
+          </h2>
+          <PageContent className="content" content={content} />
+          <img src={`${
+            !!image.childImageSharp ? image.childImageSharp.fluid.src : image
+            }`} alt="La Escuela" className="image-half-size"></img>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 
@@ -40,6 +39,7 @@ const AboutPage = ({ data }) => {
         contentComponent={HTMLContent}
         title={post.frontmatter.title}
         content={post.html}
+        image={post.frontmatter.image}
       />
     </Layout>
   )
@@ -57,6 +57,13 @@ export const aboutPageQuery = graphql`
       html
       frontmatter {
         title
+        image {
+          childImageSharp {
+            fluid(maxWidth: 2048, quality: 100) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }

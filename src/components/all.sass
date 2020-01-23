@@ -1,17 +1,89 @@
 @import "~bulma/sass/utilities/initial-variables"
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 // Config vars
 // Kaldi logo brand color: #FD461E
-$kaldi-red: #D64000
+$main-yellow: #DEA33E
+$accent: #FD461E
 $kaldi-red-invert: #fff
+$black: #000
 
-$primary: $kaldi-red
+$primary: $main-yellow
 $primary-invert: $kaldi-red-invert
 $body-color: #333
-$black: #2b2523
+// $black: #2b2523
+
+html
+  background-color: $black
+  
+body
+  font-family: 'Montserrat', sans-serif !important
+  color: white !important
+
+.title
+  color: $accent !important
+
+.content h3
+  color: white !important
+
+.navbar
+  background-color: transparent !important
+  position: absolute !important
+  top: 1rem
+  color: #DEA33E
+  min-width: 100%
 
 .navbar .navbar-menu
   box-shadow:none !important
+
+.navbar-burger
+  color: $primary !important
+  top: -.2rem !important
+  margin-right: 1rem !important
+
+.flex-container 
+  display: flex
+  position: absolute
+  top: 25%
+  left: 50%
+  transform: translate(-50%, -50%)
+  width: 60vw
+  height: 25%
+  flex-direction: column
+
+.image-half-size
+  max-width: 80%
+  margin: auto
+
+.image-small
+  max-width: 40%
+  margin: auto
+  float: right
+  top: 50vh
+  position: absolute
+  left: 80vh
+
+.grid-container
+  display: grid
+  z-index: 10
+  position: absolute
+  top: 60%
+  left: 50%
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr))
+  grid-auto-rows: 1fr
+  transform: translate(-50%, -50%)
+  width: 60vw
+  height: 25%
+
+.grid-container h1
+  background-color: $primary !important
+  font-weight: 700
+  font-size: -webkit-xxx-large
+
+.grid-container h3
+  background-color: $accent !important
+  font-size: xx-large
+  color: #fad78c !important
 
 .content .taglist
   list-style: none
@@ -29,27 +101,35 @@ $black: #2b2523
     margin-top: 0
 
 // Helper Classes
+
+.main-section
+  min-height: 100vh
+  background-color: $black;
+
 .full-width-image-container
-  width: 100vw
-  height: 400px
+  width: 50vw
+  height: 80vh
   position: relative
   left: 50%
   right: 50%
   margin: 2em -50vw
-  background-size: cover
+  background-size: contain
   background-position: bottom
   display: flex
   justify-content: center
   align-items: center
 
 .full-width-image
-    width: 100vw
-    height: 400px
-    background-size: cover
-    background-position: bottom
-    display: flex
-    justify-content: center
-    align-items: center
+  margin: 0 auto;
+  width: 50vw
+  height: 100vh;
+  background-size: 80%;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-clip: border-box;
+  background-repeat: no-repeat;
 
 .btn
     display: inline-block
@@ -61,18 +141,24 @@ $black: #2b2523
     border-radius: .25rem
     text-decoration: none
     font-weight: 700
-    color: #CC3700
+    color: $primary
     text-align: center
-    -webkit-box-shadow: inset 0 0 0 2px #CC3700
-    box-shadow: inset 0 0 0 2px #f40
+    -webkit-box-shadow: inset 0 0 0 2px $primary
+    box-shadow: inset 0 0 0 2px $primary
     -webkit-transition: all .15s ease
     transition: all .15s ease
 
 .margin-top-0
   margin-top: 0 !important
 
-.navbar-item .icon
-  color: $primary
+.navbar-item
+  color: $primary !important
+  padding: .5rem 2rem !important
+  height: 3rem !important
+
+.navbar-item:hover
+  color: $black !important
+
 // Override for use of svg's from https://simpleicons.org/
 .icon svg
   width: 1.5rem
@@ -81,8 +167,12 @@ $black: #2b2523
 .navbar-brand .navbar-item.logo
   padding: 0 1rem
 footer.footer
-  padding: 3rem 0rem 0rem
+  padding: 0 !important
   background-color: transparent
+  width: 100%;
+  z-index: 15;
+  top: 94vh;
+  position: absolute
 
 //Menu overrides
 $menu-item-color: $white-ter
@@ -122,6 +212,39 @@ $menu-label-color: $white-ter
   flex-basis: 35%;
   margin: 0 1.5em 0 0;
 
+.sweep-to-right
+  position: relative
+  -webkit-transform: translateZ(0)
+  transform: translateZ(0)
+  -webkit-transition: color 1000ms, background 1000ms
+  transition: color 1000ms, background 1000ms
+  &:before
+    content: ""
+    position: absolute
+    z-index: -1
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: $primary
+    color: $black !important
+    -webkit-transform: scaleX(0)
+    transform: scaleX(0)
+    -webkit-transform-origin: 0 50%
+    transform-origin: 0 50%
+    -webkit-transition-property: transform
+    transition-property: transform
+    -webkit-transition: 100ms ease-out
+    transition: 100ms ease-out
+  &:hover:before
+    -webkit-transform: scaleX(1)
+    transform: scaleX(1)
+  
+@keyframes pulse
+  0%
+    box-shadow: 0 0 0 0px rgba(245, 27, 27, 0.2)
+  100%
+    box-shadow: 0 0 0 35px rgba(85, 223, 30, 0)
 
 @import "~bulma"
 
@@ -138,3 +261,19 @@ $menu-label-color: $white-ter
     text-align: center;
     max-width: 70%;
     margin: 0 0 1em;
+
+  .full-width-image
+    background-size: 100%;
+
+  .flex-container
+    width: 80%
+    font-size: 0.9em
+
+  .image-small
+    float: none
+    top: 71vh
+    left: 30%
+    margin: 0
+
+  .footer
+    top: 88vh !important
